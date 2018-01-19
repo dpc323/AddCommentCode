@@ -1,17 +1,12 @@
 #-*- coding: UTF-8 -*-
 
-'''
-    1、读取指定目录下的所有文件
-    2、读取指定文件，输出文件内容
-    3、创建一个文件并保存到指定目录
-    '''
 import os
 import string
 import random
 
 filesPath = []
 
-# 遍历指定目录，显示目录下的所有文件名
+# 遍历指定目录下的所有文件名以及子文件夹内文件名
 def eachFile(filepath):
     pathDir =  os.listdir(filepath)
     for allDir in pathDir:
@@ -24,21 +19,23 @@ def eachFile(filepath):
                 filesPath.append(child)
     return filesPath
 
+#自动添加注释
 def addCode(arr):
     for filename in arr:
         fopen = open(filename, 'r') # r 代表read
         lines = fopen.readlines()
         fopen.close
 
-        fopen = open(filename, 'w') # r 代表read
+        fopen = open(filename, 'w') # w 代表write
         for k,v in enumerate(lines):
-            if '\\' in v:
+            if '\\' in v:       #用'\'分行写的代码，如果此时添加注释会引起报错
                 fopen.write(v)
             else:
                 str = autoStr('//') + '\n'
                 fopen.write(v+str)
         fopen.close()
 
+#生成10-20个数字的随机注释代码
 def autoStr(str):
     wList = []
     for word in string.lowercase:
@@ -49,7 +46,7 @@ def autoStr(str):
     return str + randomstr
 
 if __name__ == '__main__':
-    filePath = "."
+    filePath = "."    #从当前python文件所在文件目录遍历文件，包含当前文件夹
     fileArr = eachFile(filePath)
     print fileArr
     addCode(fileArr)
