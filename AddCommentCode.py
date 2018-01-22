@@ -28,7 +28,7 @@ def addCode(arr):
 
         fopen = open(filename, 'w') # w 代表write
         for k,v in enumerate(lines):
-            if '\\' in v:       #用'\'分行写的代码，如果此时添加注释会引起报错
+            if '\\' in v:       #用分行符'\'写的代码，如果在此行后添加注释会引起报错
                 fopen.write(v)
             else:
                 str = autoStr('//') + '\n'
